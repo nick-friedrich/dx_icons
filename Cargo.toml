@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/dx_icons",
+    "crates/dx_icons_feather",
+    "crates/dx_icons_lucide",
+    "crates/dx_icons_heroicons",
+    "crates/dx_icons_simple",
+    "crates/dx_icons_tabler",
+]
+
+[workspace.dependencies]
+dioxus = "0.7"
+serde_json = "1"

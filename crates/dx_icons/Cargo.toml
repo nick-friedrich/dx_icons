@@ -1,0 +1,24 @@
+[package]
+name = "dx_icons"
+version = "0.1.0"
+edition = "2024"
+description = "Icon components for Dioxus — Feather, Lucide, Heroicons, Tabler, Simple Icons and more"
+license = "MIT"
+repository = "https://github.com/nick-friedrich/dx_icons"
+keywords = ["dioxus", "icons", "svg", "ui", "components"]
+categories = ["gui", "web-programming"]
+
+[features]
+default = ["feather"]
+feather = ["dep:dx_icons_feather"]
+lucide = ["dep:dx_icons_lucide"]
+heroicons = ["dep:dx_icons_heroicons"]
+simple = ["dep:dx_icons_simple"]
+tabler = ["dep:dx_icons_tabler"]
+
+[dependencies]
+dx_icons_feather = { version = "0.1", path = "../dx_icons_feather", optional = true }
+dx_icons_lucide = { version = "0.1", path = "../dx_icons_lucide", optional = true }
+dx_icons_heroicons = { version = "0.1", path = "../dx_icons_heroicons", optional = true }
+dx_icons_simple = { version = "0.1", path = "../dx_icons_simple", optional = true }
+dx_icons_tabler = { version = "0.1", path = "../dx_icons_tabler", optional = true }

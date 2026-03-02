@@ -1,0 +1,16 @@
+[package]
+name = "dx_icons_heroicons"
+version = "0.1.0"
+edition = "2024"
+description = "Heroicons (outline + solid) as native Dioxus 0.7 components"
+license = "MIT"
+repository = "https://github.com/nick-friedrich/dx_icons"
+keywords = ["dioxus", "icons", "svg", "heroicons", "components"]
+categories = ["gui", "web-programming"]
+include = ["src/**/*", "build.rs", "heroicons_outline.json", "heroicons_solid.json", "Cargo.toml", "LICENSE"]
+
+[dependencies]
+dioxus.workspace = true
+
+[build-dependencies]
+serde_json.workspace = true

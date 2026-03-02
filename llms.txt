@@ -1,0 +1,126 @@
+# dx_icons
+
+> dx_icons provides popular open-source icon sets as native Dioxus 0.7 components for Rust. Each icon set is its own crate, with a meta-crate (`dx_icons`) that re-exports them behind feature flags.
+
+## Installation
+
+Add to `Cargo.toml` using the meta-crate with feature flags:
+
+```toml
+[dependencies]
+dx_icons = { version = "0.1", features = ["lucide"] }
+```
+
+Available features: `feather` (default), `lucide`, `heroicons`, `tabler`, `simple`
+
+Or depend on an icon set crate directly:
+
+```toml
+[dependencies]
+dx_icons_lucide = "0.1"
+```
+
+## Icon Sets
+
+- `dx_icons_feather` — 287 Feather Icons (stroke-based, 24×24)
+- `dx_icons_lucide` — ~1700 Lucide Icons (stroke-based, 24×24, Feather successor)
+- `dx_icons_heroicons` — 324 outline + 324 solid Heroicons (TWO separate enums: `HeroiconsOutline` and `HeroiconsSolid`)
+- `dx_icons_tabler` — ~5000 Tabler Icons (stroke-based, 24×24)
+- `dx_icons_simple` — ~3400 Simple Icons brand logos (fill-only, 24×24)
+
+## API — Stroke-based icon sets (Feather, Lucide, Tabler)
+
+Each crate exports: an `Icon` component, an enum (e.g. `LucideIcon`), and shorthand components (e.g. `IconHome`).
+
+```rust
+use dx_icons::lucide::*;  // or: use dx_icons_lucide::*;
+
+rsx! {
+    // Enum-based — full control over props
+    Icon { icon: LucideIcon::Home }
+    Icon { icon: LucideIcon::Search, size: 32, color: "red", stroke_width: 1.5 }
+
+    // Shorthand components — same props minus `icon`
+    IconHome {}
+    IconSearch { size: 32, color: "#333", class: "my-icon" }
+}
+```
+
+Props for `Icon` component:
+
+| Prop           | Type     | Default          | Notes                        |
+|----------------|----------|------------------|------------------------------|
+| `icon`         | Enum     | required         | e.g. `LucideIcon::Home`     |
+| `size`         | `u32`    | `24`             | Width and height in px       |
+| `color`        | `String` | `"currentColor"` | Stroke or fill color         |
+| `stroke_width` | `f32`    | `2.0`            | SVG stroke width             |
+| `class`        | `String` | `""`             | Additional CSS classes       |
+| `fill`         | `bool`   | `false`          | `true` = use fill, no stroke |
+
+Shorthand components (e.g. `IconHome`, `IconSearch`) accept the same props except `icon`.
+
+Feather uses enum `FeatherIcon`, Lucide uses `LucideIcon`, Tabler uses `TablerIcon`. The pattern is identical across all three.
+
+## API — Heroicons (outline + solid)
+
+Heroicons has TWO enums and TWO base components:
+
+```rust
+use dx_icons::heroicons::*;  // or: use dx_icons_heroicons::*;
+
+rsx! {
+    // Outline (stroke-based, default stroke_width: 1.5)
+    IconOutline { icon: HeroiconsOutline::Home }
+    IconOutline { icon: HeroiconsOutline::MagnifyingGlass, size: 32, color: "red", stroke_width: 2.0 }
+
+    // Solid (fill-based)
+    IconSolid { icon: HeroiconsSolid::Home }
+    IconSolid { icon: HeroiconsSolid::MagnifyingGlass, size: 32, color: "blue" }
+
+    // Shorthand components use Outline/Solid suffix
+    IconHomeOutline {}
+    IconHomeSolid { size: 32 }
+}
+```
+
+`IconOutline` props: `icon` (HeroiconsOutline), `size`, `color`, `stroke_width` (default 1.5), `class`
+`IconSolid` props: `icon` (HeroiconsSolid), `size`, `color`, `class`
+
+## API — Simple Icons (brand logos)
+
+Simple Icons are fill-only (no stroke). The `Icon` component and shorthand components have a reduced prop set:
+
+```rust
+use dx_icons::simple::*;  // or: use dx_icons_simple::*;
+
+rsx! {
+    Icon { icon: SimpleIcon::Github }
+    Icon { icon: SimpleIcon::Docker, size: 32, color: "#2496ED" }
+
+    IconGithub {}
+    IconRust { size: 48, color: "#000000" }
+}
+```
+
+Props: `icon` (SimpleIcon), `size` (u32, default 24), `color` (String, default "currentColor"), `class` (String).
+
+No `stroke_width` or `fill` props — these icons are always filled.
+
+Brand names starting with digits are prefixed with `N` in the enum, e.g. `SimpleIcon::N1password`.
+
+## Enum naming convention
+
+Icon names are kebab-case in the source data and converted to PascalCase for Rust enum variants:
+- `arrow-right` → `ArrowRight`
+- `chevron-down` → `ChevronDown`
+- `magnifying-glass` → `MagnifyingGlass`
+
+## Docs
+
+- [GitHub repository](https://github.com/nick-friedrich/dx_icons)
+- [crates.io — dx_icons](https://crates.io/crates/dx_icons)
+- [crates.io — dx_icons_feather](https://crates.io/crates/dx_icons_feather)
+- [crates.io — dx_icons_lucide](https://crates.io/crates/dx_icons_lucide)
+- [crates.io — dx_icons_heroicons](https://crates.io/crates/dx_icons_heroicons)
+- [crates.io — dx_icons_tabler](https://crates.io/crates/dx_icons_tabler)
+- [crates.io — dx_icons_simple](https://crates.io/crates/dx_icons_simple)
